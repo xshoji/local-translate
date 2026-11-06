@@ -1,0 +1,6 @@
+github.com/ardanlabs/jinja v1.8.0 h1:NuRapYr/hv8J+4v1KymVAbbu6vuqMu+poXkJHfXqLs4=
+github.com/ardanlabs/jinja v1.8.0/go.mod h1:VE5Fa3Zglc+e4tFaapOnA6BRMBRDI7A2qCd3Jse6oyw=
+github.com/goccy/go-llama v0.6.0 h1:SDdFBabAKyoUDIlAHXPVtALFVKPw0r1gn7uiFBgk/AA=
+github.com/goccy/go-llama v0.6.0/go.mod h1:/Fy0z6JaKeUp/E59KyKc8YDmzUk6EBv4RICGJEB0EjA=
+github.com/goccy/llamawasm2go v0.5.0 h1:NCYh0wSY6QOEKLiPwFF+i+XBaIEcQEi+KvI185PFaLg=
+github.com/goccy/llamawasm2go v0.5.0/go.mod h1:2RraXBB/RS2RBlIol/M/rNvIcdtatKWzt8g7q63MPm0=
