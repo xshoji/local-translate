@@ -37,6 +37,8 @@ const (
 	ggufMagic       = "GGUF"
 )
 
+var version = "dev"
+
 type modelSpec struct {
 	file, url, checksum string
 	size                int64
@@ -87,7 +89,7 @@ func customUsage(f *flag.FlagSet, synopsis, description, examples string) func()
 	const optionWidth = 26
 
 	return func() {
-		fmt.Fprintf(f.Output(), "Usage: %s\n\nDescription:\n  %s\n\n", synopsis, description)
+		fmt.Fprintf(f.Output(), "local-translate version %s\n\nUsage: %s\n\nDescription:\n  %s\n\n", version, synopsis, description)
 		spec, _ := getModel(defaultModelURL, "")
 		modelDir := filepath.Dir(defaultModel(spec))
 		if absolute, err := filepath.Abs(modelDir); err == nil {

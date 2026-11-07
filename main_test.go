@@ -53,6 +53,7 @@ func TestSingleFileCLI(t *testing.T) {
 		}
 		help := strings.Join(strings.Fields(diagnostics.String()), " ")
 		for _, want := range []string{
+			"local-translate version dev",
 			"Usage: local-translate", "Description:", "Default model", "Options:", "Examples:",
 			"Model storage: " + filepath.Join(cache, "local-translate"),
 			"4B parameters", "Q4_K_M (4-bit)", "Show help", "GGUF size",
@@ -67,6 +68,18 @@ func TestSingleFileCLI(t *testing.T) {
 				t.Errorf("%v: help still contains %q", tc.args, removed)
 			}
 		}
+	}
+}
+
+func TestReleaseUsage(t *testing.T) {
+	cmd := exec.Command("go", "run", "-ldflags=-X main.version=1.2.3", "main.go", "--help")
+	var out, diagnostics bytes.Buffer
+	cmd.Stdout, cmd.Stderr = &out, &diagnostics
+	if err := cmd.Run(); err != nil {
+		t.Fatalf("release help: %v\n%s", err, &diagnostics)
+	}
+	if out.Len() != 0 || !strings.HasPrefix(diagnostics.String(), "local-translate version 1.2.3\n") {
+		t.Fatalf("release version missing from help: stdout=%q, stderr=%q", &out, &diagnostics)
 	}
 }
 

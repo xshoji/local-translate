@@ -163,6 +163,23 @@ the selected models through an interactive translation, then see
 Review important translations against their source; model output can contain
 omissions or changes in meaning.
 
+## Release
+
+The release flow for this repository is automated with GitHub Actions.
+Pushing Git tags triggers the release job.
+
+```
+# Release
+git tag 0.0.1 && git push --tags
+
+
+# Delete tag
+v="0.0.1"; git tag -d "${v}" && git push origin :"${v}"
+
+# Delete tag and recreate new tag and push
+v="0.0.1"; git tag -d "${v}" && git push origin :"${v}"; git tag "${v}"; git push --tags
+```
+
 ## License
 
 The CLI code is [MIT-licensed](LICENSE). go-llama is MIT-licensed; the Jinja
