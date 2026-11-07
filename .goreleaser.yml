@@ -1,0 +1,47 @@
+version: 2
+
+builds:
+  - main: .
+    binary: local-translate
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+
+archives:
+  - formats: [zip]
+    files:
+      - README.md
+      - LICENSE
+
+homebrew_casks:
+  - name: local-translate
+    repository:
+      owner: xshoji
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    homepage: https://github.com/xshoji/local-translate
+    description: A local translation CLI for Japanese and English
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr",
+              args: ["-dr", "com.apple.quarantine", "#{staged_path}/local-translate"]
+          end
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
