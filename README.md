@@ -170,19 +170,20 @@ the GitHub release, and updates the Homebrew cask.
 
 ```
 # Release
-v=0.0.2; git tag "${v}"; git push origin "${v}"
+v=0.0.2; git tag "${v}" && git push origin "${v}"
 
 
 # Delete tag
 v=0.0.2; git tag -d "${v}"; git push origin :"${v}"
 
-# Re-create tag (this re-runs the release job)
-v=0.0.2; git tag -d "${v}"; git push origin :"${v}"; git tag "${v}"; git push origin "${v}"
+# Move the tag to HEAD and re-run the release
+v=0.0.2; git tag -f "${v}" && git push -f origin "refs/tags/${v}"
 ```
 
-Re-creating a tag overwrites the release assets and changes their checksums
-(`release.replace_existing_artifacts` in `.goreleaser.yml`). Fix an already
-published version with a new version instead.
+Deleting a tag turns its release into a draft. Move the tag instead: that keeps
+the release, replaces its assets on upload (`release.replace_existing_artifacts`),
+and keeps the existing notes (`release.mode` defaults to `keep-existing`).
+Checksums change; fix an already published version with a new version instead.
 
 ## License
 
