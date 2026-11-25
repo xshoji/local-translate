@@ -1,5 +1,9 @@
 version: 2
 
+# A re-created tag overwrites the same-named assets of the existing release.
+release:
+  replace_existing_artifacts: true
+
 builds:
   - main: .
     binary: local-translate

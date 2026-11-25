@@ -180,6 +180,12 @@ v="0.0.1"; git tag -d "${v}" && git push origin :"${v}"
 v="0.0.1"; git tag -d "${v}" && git push origin :"${v}"; git tag "${v}"; git push --tags
 ```
 
+Re-creating a tag re-runs the job and overwrites the same-named assets of the
+existing release (`release.replace_existing_artifacts` in `.goreleaser.yml`).
+Checksums change, so confirm the cask in `xshoji/homebrew-tap` was updated and
+`brew update && brew upgrade --cask local-translate` installs the new build.
+Fix an already published version with a new version instead.
+
 ## License
 
 The CLI code is [MIT-licensed](LICENSE). go-llama is MIT-licensed; the Jinja
