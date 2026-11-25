@@ -165,26 +165,24 @@ omissions or changes in meaning.
 
 ## Release
 
-The release flow for this repository is automated with GitHub Actions.
-Pushing Git tags triggers the release job.
+Pushing a version tag runs the `release` workflow: it tests, builds, publishes
+the GitHub release, and updates the Homebrew cask.
 
 ```
 # Release
-git tag 0.0.1 && git push --tags
+v=0.0.2; git tag "${v}"; git push origin "${v}"
 
 
 # Delete tag
-v="0.0.1"; git tag -d "${v}" && git push origin :"${v}"
+v=0.0.2; git tag -d "${v}"; git push origin :"${v}"
 
-# Delete tag and recreate new tag and push
-v="0.0.1"; git tag -d "${v}" && git push origin :"${v}"; git tag "${v}"; git push --tags
+# Re-create tag (this re-runs the release job)
+v=0.0.2; git tag -d "${v}"; git push origin :"${v}"; git tag "${v}"; git push origin "${v}"
 ```
 
-Re-creating a tag re-runs the job and overwrites the same-named assets of the
-existing release (`release.replace_existing_artifacts` in `.goreleaser.yml`).
-Checksums change, so confirm the cask in `xshoji/homebrew-tap` was updated and
-`brew update && brew upgrade --cask local-translate` installs the new build.
-Fix an already published version with a new version instead.
+Re-creating a tag overwrites the release assets and changes their checksums
+(`release.replace_existing_artifacts` in `.goreleaser.yml`). Fix an already
+published version with a new version instead.
 
 ## License
 
